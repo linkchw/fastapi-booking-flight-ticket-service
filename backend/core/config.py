@@ -14,5 +14,8 @@ class Setting:
     BATABASE_URL = "sqlite:///./sql_app.db"
     FLIGHT_SERVICE_URL = os.getenv("FLIGHT_SERVICE_URL", "http://localhost:8000")
 
+    SECRET_KEY: str = os.getenv("SECRET_KEY")
+    ALGORITHM = "HS256"
+    ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 setting = Setting()
