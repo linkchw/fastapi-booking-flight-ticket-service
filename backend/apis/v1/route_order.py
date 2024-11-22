@@ -2,7 +2,6 @@ from db.models.passenger import Passenger
 from db.models.ticket import Ticket
 from db.models.user import User
 from db.repository.order import create_new_order
-from db.repository.passenger import create_new_passenger
 from db.session import get_db
 from fastapi import APIRouter
 from fastapi import Depends
