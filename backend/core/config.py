@@ -12,7 +12,7 @@ class Setting:
     PROJECT_VERSION: str = "1.0.0"
 
     BATABASE_URL = "sqlite:///./sql_app.db"
-    FLIGHT_SERVICE_URL = os.getenv("FLIGHT_SERVICE_URL", "http://localhost:8000")
+    FLIGHT_SERVICE_URL = os.getenv("FLIGHT_SERVICE_URL", "http://127.0.0.1:8000")
 
     SECRET_KEY: str = os.getenv("SECRET_KEY")
     ALGORITHM = "HS256"

@@ -2,21 +2,10 @@ from database.in_memory_db import all_flights
 from database.in_memory_db import find_flight
 from fastapi import APIRouter
 from fastapi import HTTPException
+from fastapi import Query
 from schemas import Flight
-from schemas import FlightCreate
 
 router = APIRouter()
-
-
-@router.post("/{airline}/", response_model=Flight)
-def create_flight(airline: str, flight: FlightCreate):
-    airline_data = all_flights.get(airline)
-    if not airline_data:
-        raise HTTPException(status_code=404, detail="Airline not found")
-
-    flight_id = f"flight_{len(airline_data) + 1}"
-    airline_data[flight_id] = flight.dict()
-    return {"airline": airline, "id": flight_id, **flight.dict()}
 
 
 @router.get("/", response_model=list[Flight])
@@ -36,11 +25,24 @@ def read_flight(airline: str, flight_id: str):
     return {"airline": airline, "id": flight_id, **flight}
 
 
-@router.put("/{airline}/{flight_id}", response_model=Flight)
-def update_flight(airline: str, flight_id: str, flight: FlightCreate):
-    existing_flight = find_flight(airline, flight_id)
-    if not existing_flight:
-        raise HTTPException(status_code=404, detail="Flight not found")
-
-    all_flights[airline][flight_id] = flight.dict()
-    return {"airline": airline, "id": flight_id, **flight.dict()}
+@router.get("/search/", response_model=list[Flight])
+def search_flights(
+    origin: str,
+    destination: str,
+    date: str | None = Query(None, description="Format: YYYY-MM-DD")
+):
+    results = []
+    for airline, flight_data in all_flights.items():
+        for flight_id, details in flight_data.items():
+            if details["origin"].lower() == origin.lower() and details["destination"].lower() == destination.lower():
+                if date:
+                    flight_date = details["departure_time"].split(" ")[0]
+                    if flight_date == date:
+                        results.append({"airline": airline, "id": flight_id, **details})
+                else:
+                    results.append({"airline": airline, "id": flight_id, **details})
+    
+    if not results:
+        raise HTTPException(status_code=404, detail="No flights found matching the criteria.")
+    
+    return results

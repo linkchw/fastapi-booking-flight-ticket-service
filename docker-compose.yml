@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  app1:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    ports:
+      - "8000:8000"
+    networks:
+      - fastapi-network
+
+  app2:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    ports:
+      - "5090:5090"
+    networks:
+      - fastapi-network
+
+networks:
+  fastapi-network:
+    driver: bridge
+
