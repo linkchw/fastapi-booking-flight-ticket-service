@@ -16,7 +16,6 @@ async def list_flights():
             response = await client.get(f"{setting.FLIGHT_SERVICE_URL}/list")
             response.raise_for_status()
 
-            print(response)
             return response.json()
 
 

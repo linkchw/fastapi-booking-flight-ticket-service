@@ -1,4 +1,3 @@
-from typing import List
 from pydantic import BaseModel
 
 
@@ -10,7 +9,6 @@ class PassengerBase(BaseModel):
 
 class Passenger(PassengerBase):
     id: int
-    tickets: List["Ticket"] = []
 
     class Config:
         orm_mode = True

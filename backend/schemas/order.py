@@ -1,22 +1,18 @@
+from pydantic import BaseModel 
 from typing import List
-from schemas.user import User
-
-from pydantic import BaseModel
+from schemas.ticket import Ticket, TicketCreate 
 
 class OrderBase(BaseModel):
     code: str
     price: float
+    user_id: int
 
 class OrderCreate(OrderBase):
-    code: str
-    price: float
-    user_id: int
-    tickets: List = []
+    tickets: List[TicketCreate]
 
 class Order(OrderBase):
     id: int
-    user: User
-    tickets: List = []
+    tickets: List[Ticket]
 
     class Config:
         orm_mode = True

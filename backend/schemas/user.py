@@ -15,7 +15,7 @@ class UserCreate(UserBase):
 
 class User(UserBase):
     id: int
-    orders: List["Order"] = []
+    orders: List = []
 
     class Config:
         orm_mode = True
