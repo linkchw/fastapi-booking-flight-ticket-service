@@ -13,7 +13,7 @@ router = APIRouter()
 async def list_flights():
     async with httpx.AsyncClient() as client:
         try:
-            response = await client.get(f"{setting.FLIGHT_SERVICE_URL}/list")
+            response = await client.get(f"{setting.FLIGHT_SERVICE_URL}/list/")
             response.raise_for_status()
 
             return response.json()
