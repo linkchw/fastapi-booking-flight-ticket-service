@@ -12,7 +12,7 @@ class OrderCreate(OrderBase):
 
 class Order(OrderBase):
     id: int
-    tickets: List[Ticket]
+    # tickets: List[Ticket]
 
     class Config:
         orm_mode = True

@@ -6,7 +6,8 @@ class PassengerBase(BaseModel):
     national_id: str
     age: int
     gender: str
-
+class PassengerCreate(PassengerBase):
+    pass
 class Passenger(PassengerBase):
     id: int
 

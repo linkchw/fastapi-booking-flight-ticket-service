@@ -28,26 +28,28 @@ async def submit_order(order: OrderCreate, db: Session = Depends(get_db)):
         new_order = create_new_order(order=order, db=db)
 
         for ticket_data in order.tickets:
+            passenger_data = ticket_data.passenger
 
-            passenger = db.query(Passenger).filter(Passenger.id == ticket_data.passenger_id).first()
+            passenger = db.query(Passenger).filter(Passenger.national_id == passenger_data.national_id).first()
 
             if not passenger:
+            # Create a new passenger if they don't exist
                 passenger = Passenger(
-                    name=ticket_data.passenger.name,
-                    national_id=ticket_data.passenger.national_id,
-                    age=ticket_data.passenger.age,
-                    gender=ticket_data.passenger.gender
+                    name=passenger_data.name,
+                    national_id=passenger_data.national_id,
+                    age=passenger_data.age,
+                    gender=passenger_data.gender,
                 )
                 db.add(passenger)
-                db.commit()  # Commit to generate the passenger ID
+                db.commit()
                 db.refresh(passenger)
 
-            new_ticket = Ticket(
+            ticket = Ticket(
                 ticket_number=ticket_data.ticket_number,
-                passenger_id=ticket_data.passenger_id,
-                order_id=new_order.id,
+                passenger_id=passenger.id,
+                order_id=new_order.id
             )
-            db.add(new_ticket)
+            db.add(ticket)
 
         db.commit()
 
