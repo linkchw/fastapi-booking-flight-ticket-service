@@ -2,27 +2,21 @@ from typing import List
 
 from pydantic import BaseModel
 from pydantic import EmailStr
-from pydantic import Field
 
 
-class UserCreate(BaseModel):
-    email: EmailStr
-    password: str = Field(..., min_length=4)
+class UserBase(BaseModel):
     username: str
+    email: EmailStr
     name: str
     phone_number: str
 
-    class Config:
-        orm_mode = True
+class UserCreate(UserBase):
+    password: str
 
-
-class UserResponse(BaseModel):
+class User(UserBase):
     id: int
-    username: str
-    email: EmailStr
-    name: str
-    phone_number: str
-    orders: List = []
+    orders: List["Order"] = []
 
     class Config:
         orm_mode = True
+

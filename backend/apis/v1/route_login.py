@@ -17,7 +17,7 @@ from sqlalchemy.orm import Session
 router = APIRouter()
 
 
-def authenticate_user(email: str, password: str, db: Session):
+async def authenticate_user(email: str, password: str, db: Session):
     user = get_user(email=email, db=db)
     print(user)
     if not user:
@@ -28,7 +28,7 @@ def authenticate_user(email: str, password: str, db: Session):
 
 
 @router.post("/token", response_model=Token)
-def login_for_access_token(
+async def login_for_access_token(
     form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)
 ):
     user = authenticate_user(form_data.username, form_data.password, db)
@@ -45,7 +45,7 @@ def login_for_access_token(
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/token")
 
 
-def get_current_user(
+async def get_current_user(
     token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)
 ):
     credentials_exception = HTTPException(

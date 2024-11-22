@@ -7,11 +7,11 @@ from sqlalchemy.orm import relationship
 
 
 class Ticket(Base):
+    __tablename__ = "tickets"
     id = Column(Integer, primary_key=True, index=True)
     ticket_number = Column(String, unique=True, nullable=False)
+    passenger_id = Column(Integer, ForeignKey("passengers.id"))
+    order_id = Column(Integer, ForeignKey("orders.id"))
 
-    passenger_id = Column(Integer, ForeignKey("passenger.id"))
-    order_id = Column(Integer, ForeignKey("order.id"))
-
-    passenger = relationship("Passenger", back_populates="ticket")
-    order = relationship("Order", back_populates="ticket")
+    passenger = relationship("Passenger", back_populates="tickets")
+    order = relationship("Order", back_populates="tickets")

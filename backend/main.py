@@ -5,6 +5,10 @@ from db.session import engine
 from fastapi import FastAPI
 
 
+import httpx
+from fastapi import HTTPException
+
+
 def include_router(app):
     app.include_router(api_router)
 
@@ -25,4 +29,4 @@ app = start_application()
 
 @app.get("/")
 def hello_api():
-    return {"msg": "Hello Fastapi"}
+    return {"msg": "Welcome to Flight Ticket Service"}

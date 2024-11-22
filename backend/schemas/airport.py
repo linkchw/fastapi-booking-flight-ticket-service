@@ -1,18 +1,15 @@
 from pydantic import BaseModel
 
 
-class AirportCreate(BaseModel):
+class AirportBase(BaseModel):
     name: str
     code: str
 
-    class Config:
-        orm_mode = True
+class AirportCreate(AirportBase):
+    pass
 
-
-class AirportResponse(BaseModel):
+class Airport(AirportBase):
     id: int
-    name: str
-    code: str
 
     class Config:
         orm_mode = True

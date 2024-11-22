@@ -11,8 +11,7 @@ class Order(Base):
     id = Column(Integer, primary_key=True, index=True)
     code = Column(String, unique=True, nullable=False)
     price = Column(Float, nullable=False)
+    user_id = Column(Integer, ForeignKey("users.id"))
 
-    user_id = Column(Integer, ForeignKey("user.id"))
-
-    user = relationship("User", back_populates="order")
+    user = relationship("User", back_populates="orders")
     tickets = relationship("Ticket", back_populates="order")

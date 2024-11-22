@@ -1,25 +1,18 @@
-from typing import List
-from typing import Optional
-
 from pydantic import BaseModel
-from pydantic import EmailStr
-from pydantic import Field
+from schemas.passenger import Passenger
+from schemas.order import Order
 
-
-class TicketCreate(BaseModel):
+class TicketBase(BaseModel):
     ticket_number: str
+
+class TicketCreate(TicketBase):
     passenger_id: int
     order_id: int
 
-    class Config:
-        orm_mode = True
-
-
-class TicketResponse(BaseModel):
+class Ticket(TicketBase):
     id: int
-    ticket_number: str
-    passenger_id: int
-    order_id: int
+    passenger: Passenger
+    order: Order
 
     class Config:
         orm_mode = True

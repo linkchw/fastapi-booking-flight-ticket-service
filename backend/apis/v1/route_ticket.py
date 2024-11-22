@@ -13,10 +13,12 @@ router = APIRouter()
 async def list_flights():
     async with httpx.AsyncClient() as client:
         try:
-            response = await client.get(f"{setting.FLIGHT_SERVICE_URL}/")
+            response = await client.get(f"{setting.FLIGHT_SERVICE_URL}/list")
             response.raise_for_status()
 
+            print(response)
             return response.json()
+
 
         except httpx.HTTPError as e:
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
