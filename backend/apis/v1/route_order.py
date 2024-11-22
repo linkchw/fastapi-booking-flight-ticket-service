@@ -33,7 +33,6 @@ async def submit_order(order: OrderCreate, db: Session = Depends(get_db)):
             passenger = db.query(Passenger).filter(Passenger.national_id == passenger_data.national_id).first()
 
             if not passenger:
-            # Create a new passenger if they don't exist
                 passenger = Passenger(
                     name=passenger_data.name,
                     national_id=passenger_data.national_id,
