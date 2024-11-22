@@ -8,8 +8,8 @@ from schemas import Flight
 router = APIRouter()
 
 
-@router.get("/", response_model=list[Flight])
-def read_flights():
+@router.get("/list", response_model=list[Flight])
+async def read_flights():
     flights = []
     for airline, flight_data in all_flights.items():
         for flight_id, details in flight_data.items():
@@ -18,7 +18,7 @@ def read_flights():
 
 
 @router.get("/{airline}/{flight_id}", response_model=Flight)
-def read_flight(airline: str, flight_id: str):
+async def read_flight(airline: str, flight_id: str):
     flight = find_flight(airline, flight_id)
     if not flight:
         raise HTTPException(status_code=404, detail="Flight not found")
@@ -26,7 +26,7 @@ def read_flight(airline: str, flight_id: str):
 
 
 @router.get("/search/", response_model=list[Flight])
-def search_flights(
+async def search_flights(
     origin: str,
     destination: str,
     date: str | None = Query(None, description="Format: YYYY-MM-DD")
