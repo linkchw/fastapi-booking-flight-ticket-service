@@ -1,4 +1,4 @@
-## Create User
+## Create a User
 ```json
 {
   "username": "string",
