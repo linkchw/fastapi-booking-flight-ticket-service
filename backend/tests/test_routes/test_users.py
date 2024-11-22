@@ -5,7 +5,7 @@ def test_create_user(client):
         "name": "Test User",
         "phone_number": "1234567890",
     }
-    response = client.post("/users", json=data)
+    response = client.post("/", json=data)
 
     assert response.status_code == 201
     response_data = response.json()

@@ -6,6 +6,7 @@ from schemas.order import Order
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
 from db.repository.order import create_new_order
+from db.repository.passenger import create_new_passenger
 from db.session import get_db
 from db.models.user import User
 from db.models.passenger import Passenger
@@ -19,7 +20,6 @@ router = APIRouter()
 
 @router.post("/submit-order", response_model=Order)
 async def submit_order(order: OrderCreate, db: Session = Depends(get_db)):
-    print(order)
     try:
         user = db.query(User).filter(User.id == order.user_id).first()
         if not user:
