@@ -1,11 +1,11 @@
 ## Create a User
 ```json
 {
-  "username": "string",
-  "email": "user@example.com",
-  "name": "string",
-  "phone_number": "string",
-  "password": "string"
+  "username": "alireza.d",
+  "email": "alireza@gmail.com",
+  "name": "Alireza",
+  "phone_number": "0091233123",
+  "password": "randowm@dkjfa123"
 }
 ```
 
