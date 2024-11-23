@@ -14,8 +14,8 @@ from db.models.passenger import Passenger
 router = APIRouter()
 
 
-@router.get("/user/{user_id}/passengers", response_model=list[PassengerBase])
-def get_user_passengers(user_id: int,
+@router.get("/user/{user_id}/history", response_model=list[PassengerBase])
+def get_past_passengers(user_id: int,
                         db: Session = Depends(get_db)
                     ):
     user = db.query(User).filter(User.id == user_id).first()
