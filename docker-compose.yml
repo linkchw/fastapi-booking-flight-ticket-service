@@ -3,7 +3,7 @@ version: '3.8'
 services:
   app1:
     build:
-      context: .
+      context: flight_api/
       dockerfile: Dockerfile.api
     ports:
       - "8000:8000"
@@ -12,7 +12,7 @@ services:
 
   app2:
     build:
-      context: .
+      context: backend/
       dockerfile: Dockerfile.backend
     ports:
       - "5090:5090"
