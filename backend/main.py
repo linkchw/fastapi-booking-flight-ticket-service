@@ -5,10 +5,6 @@ from db.session import engine
 from fastapi import FastAPI
 
 
-import httpx
-from fastapi import HTTPException
-
-
 def include_router(app):
     app.include_router(api_router)
 
